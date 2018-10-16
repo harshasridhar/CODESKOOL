@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Add User Page</title>
+  </head>
+  <body>
+    <form  method="post">
+      <label for="userName">User Name:</label>
+      <input type="text" name="userName" id="userName" required ><br>
+      <label for="password">Password</label>
+      <input type="password" name="password" id="password" required><br>
+      <label for="email_id">Email Id:</label>
+      <input type="email" name="email_id"><br>
+      <label for="preferences[]">Preferences:</label>
+      <input type="checkbox" value="Algorithms" name="preferences[]">Algorithms
+      <input type="checkbox" value="Data Structures" name="preferences[]">Data Structures
+      <input type="checkbox" value="Recursion" name="preferences[]">Recursion
+      <input type="checkbox" value="Dynamic Programming" name="preferences[]">Dynamic Programming<br>
+      <input type="submit"  value="Add User">
+      <% if( JSON.parse(JSON.stringify(data)).status == 'success' ) { %>
+        <br><strong><%= JSON.parse(JSON.stringify(data)).msg %></strong>
+      <% } %>
+      <% if (JSON.parse(JSON.stringify(data)).status == 'failed' ) { %>
+        <br><strong><%= JSON.parse(JSON.stringify(data)).msg %></strong>
+      <% } %>
+    </form>
+  </body>
+</html>

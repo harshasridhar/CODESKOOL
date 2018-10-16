@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Login/SignUp</title>
+  </head>
+  <body>
+    <div class="Login" >
+      <h2>Login</h2><br>
+      <form method="post">
+        <label for="loguserName">User Name:</label>
+        <input type="text" name="loguserName" id="userName" required ><br>
+        <label for="logpassword">Password:</label>
+        <input type="password" name="logpassword" id="password" required><br>
+        <input type="submit"  value="Login">
+        <% if( JSON.parse(JSON.stringify(data)).status == 'success' && JSON.parse(JSON.stringify(data)).l_msg ) { %>
+          <br><strong><%= JSON.parse(JSON.stringify(data)).l_msg %></strong>
+        <% } %>
+        <% if (JSON.parse(JSON.stringify(data)).status == 'failed' && JSON.parse(JSON.stringify(data)).l_msg ) { %>
+          <script>alert("<%= JSON.parse(JSON.stringify(data)).l_msg %>")</script>
+        <% } %>
+      </form>
+    </div>
+    <div class="SignUp" >
+      <h2>SignUp</h2><br>
+      <form  method="post">
+        <label for="userName">User Name:</label>
+        <input type="text" name="userName" id="userName" required ><br>
+        <label for="password">Password:</label>
+        <input type="password" name="password" id="password" required><br>
+        <label for="confPassword">Confirm Password:</label>
+        <input type="password" name="confPassword" required><br>
+        <label for="email_id">Email Id:</label>
+        <input type="email" name="email_id"><br>
+        <label for="preferences[]">Preferences:</label><br>
+        &nbsp;&nbsp;<input type="checkbox" value="Algorithms" name="preferences[]">Algorithms<br>
+        &nbsp;&nbsp;<input type="checkbox" value="Data Structures" name="preferences[]">Data Structures<br>
+        &nbsp;&nbsp;<input type="checkbox" value="Recursion" name="preferences[]">Recursion<br>
+        &nbsp;&nbsp;<input type="checkbox" value="Dynamic Programming" name="preferences[]">Dynamic Programming<br>
+        <input type="submit"  value="Sign Up">
+
+        <% if( JSON.parse(JSON.stringify(data)).status == 'success' && JSON.parse(JSON.stringify(data)).msg ) { %>
+          <br><strong><%= JSON.parse(JSON.stringify(data)).msg %></strong>
+        <% } %>
+        <% if (JSON.parse(JSON.stringify(data)).status == 'failed' && JSON.parse(JSON.stringify(data)).msg ) { %>
+          <script>alert("<%= JSON.parse(JSON.stringify(data)).msg %>")</script>
+        <% } %>
+      </form>
+    </div>
+  </body>
+</html>
