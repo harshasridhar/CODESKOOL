@@ -3,6 +3,37 @@
   <head>
     <meta charset="utf-8">
     <title>Add Problem Page</title>
+    <script type="text/javascript">
+      function insertTab(o, e)
+        {
+        	var kC = e.keyCode ? e.keyCode : e.charCode ? e.charCode : e.which;
+        	if (kC == 9 && !e.shiftKey && !e.ctrlKey && !e.altKey)
+        	{
+        		var oS = o.scrollTop;
+        		if (o.setSelectionRange)
+        		{
+        			var sS = o.selectionStart;
+        			var sE = o.selectionEnd;
+        			o.value = o.value.substring(0, sS) + "\t" + o.value.substr(sE);
+        			o.setSelectionRange(sS + 1, sS + 1);
+        			o.focus();
+        		}
+        		else if (o.createTextRange)
+        		{
+        			document.selection.createRange().text = "\t";
+        			e.returnValue = false;
+        		}
+        		o.scrollTop = oS;
+        		if (e.preventDefault)
+        		{
+        			e.preventDefault();
+        		}
+        		return false;
+        	}
+        	return true;
+        }
+        // document.getElementById('test-cases').onchange=function(){};
+    </script>
   </head>
   <body>
     <form  method="post">
@@ -11,7 +42,14 @@
         <input type="checkbox" value="Data Structures" name="tags[]">Data Structures
         <input type="checkbox" value="Recursion" name="tags[]">Recursion
         <input type="checkbox" value="Dynamic Programming" name="tags[]">Dynamic Programming<br>
-        <textarea name="pstatement" rows="25" cols="50" style="resize:none" placeholder="Enter the problem details here..."></textarea><br>
+        <label for="pstatement">Problem Statement:</label><br>
+        <textarea name="pstatement" rows="8" cols="80" style="resize:none"></textarea>
+        <br><label for="constraints">Constraints</label><br>
+        <textarea name="constraints" onkeydown="insertTab(this, event);" rows="8" cols="80" style="resize:none" placeholder="Enter the problem details here..."></textarea><br>
+        <br><label for="sample_io">Sample Input-Output</label><br>
+        Number of test cases: <input type="number" id="test-cases" value=""><br>
+        <textarea name="sample_io" rows="8" cols="30" style="resize:none"></textarea>&nbsp;
+        <textarea name="sample_io" rows="8" cols="30" style="resize:none"></textarea><br>
         <input type="submit"  value="Add Problem">
     </form>
   </body>

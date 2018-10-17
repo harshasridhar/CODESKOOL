@@ -1,7 +1,8 @@
 mongoose = require('mongoose');
 bodyParser=require('body-parser');
 // mongoose.connect('mongodb://harsha:harsha123@ds149672.mlab.com:49672/codeskool');
-var uri="mongodb://user_01:user_01@codeskool-shard-00-00-mdx6y.mongodb.net:27017,codeskool-shard-00-01-mdx6y.mongodb.net:27017,codeskool-shard-00-02-mdx6y.mongodb.net:27017/test?ssl=true&replicaSet=Codeskool-shard-0&authSource=admin&retryWrites=true";
+//var uri="mongodb://user_01:user_01@codeskool-shard-00-00-mdx6y.mongodb.net:27017,codeskool-shard-00-01-mdx6y.mongodb.net:27017,codeskool-shard-00-02-mdx6y.mongodb.net:27017/test?ssl=true&replicaSet=Codeskool-shard-0&authSource=admin&retryWrites=true";
+var uri="mongodb://localhost:27017/codeskool";
 mongoose.connect(uri,{ useNewUrlParser: true },function(err){
   if(err)
     throw err;
