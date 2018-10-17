@@ -32,8 +32,9 @@
         	}
         	return true;
         }
-        // document.getElementById('test-cases').on
-        // document.getElementById('test-cases').onchange=function(){};
+        function Change(value){
+          alert('Change detected '+ value);
+        }
     </script>
   </head>
   <body>
@@ -44,13 +45,13 @@
         <input type="checkbox" value="Recursion" name="tags[]">Recursion
         <input type="checkbox" value="Dynamic Programming" name="tags[]">Dynamic Programming<br>
         <label for="pstatement">Problem Statement:</label><br>
-        <textarea name="pstatement" rows="8" cols="80" style="resize:none"></textarea>
+        <textarea name="pstatement" rows="8" cols="80" style="resize:none" placeholder="Enter the problem details here..."></textarea>
         <br><label for="constraints">Constraints</label><br>
-        <textarea name="constraints" onkeydown="insertTab(this, event);" rows="8" cols="80" style="resize:none" placeholder="Enter the problem details here..."></textarea><br>
+        <textarea name="constraints" onkeydown="insertTab(this, event);" rows="8" cols="80" style="resize:none" placeholder="Enter the problem constraints here..."></textarea><br>
         <br><label for="sample_io">Sample Input-Output</label><br>
-        Number of test cases: <input type="number" id="test-cases" value=""><br>
-        <textarea name="sample_io" rows="8" cols="30" style="resize:none"></textarea>&nbsp;
-        <textarea name="sample_io" rows="8" cols="30" style="resize:none"></textarea><br>
+        Number of test cases: <input type="number" id="test-cases" onchange="Change(this.value)" value=""><br>
+        <textarea name="sample_inp" rows="8" cols="30" style="resize:none" placeholder="Input to the program"></textarea>&nbsp;
+        <textarea name="sample_out" rows="8" cols="30" style="resize:none" placeholder="Expected Output"></textarea><br>
         <input type="submit"  value="Add Problem">
     </form>
   </body>
