@@ -32,9 +32,41 @@
         	}
         	return true;
         }
-        function Change(value){
-          alert('Change detected '+ value);
-        }
+        function generate(value){
+			document.getElementById("test-cases").innerHTML="";
+			if(value == 0){
+				return;
+			}
+			else{
+				for(var i=0;i< value; i++){
+					var br = document.createElement("BR");
+					var div = document.createElement("DIV");
+					var inp = document.createElement("TEXTAREA")
+					var out = document.createElement("TEXTAREA");
+					inp.setAttribute('placeholder','Enter input here');
+					out.setAttribute('placeholder','Expected output');
+					inp.setAttribute('rows','8');
+					inp.setAttribute('cols','30');
+					out.setAttribute('rows','8');
+					out.setAttribute('cols','30');
+					inp.setAttribute('style','resize:none');
+					out.setAttribute('style','resize:none');
+					inp.setAttribute('name','inp_'+String(value));
+					out.setAttribute('name','out_'+String(value));
+					div.innerHTML= "Test Case"+(i+1);
+					div.appendChild(inp);
+					div.innerHTML += '&nbsp;';;
+					div.appendChild(out);
+					div.appendChild(br);
+					div.setAttribute('id',value);
+					// var child = document.createElement('TEXTAREA')
+					// child.setAttribute('type','number');
+					document.getElementById("test-cases").appendChild(div);
+					document.getElementById("test-cases").appendChild(br);
+					// alert("Change detected "+value);
+				}
+			}
+		}
     </script>
   </head>
   <body>
@@ -49,9 +81,8 @@
         <br><label for="constraints">Constraints</label><br>
         <textarea name="constraints" onkeydown="insertTab(this, event);" rows="8" cols="80" style="resize:none" placeholder="Enter the problem constraints here..."></textarea><br>
         <br><label for="sample_io">Sample Input-Output</label><br>
-        Number of test cases: <input type="number" id="test-cases" onchange="Change(this.value)" value=""><br>
-        <textarea name="sample_inp" rows="8" cols="30" style="resize:none" placeholder="Input to the program"></textarea>&nbsp;
-        <textarea name="sample_out" rows="8" cols="30" style="resize:none" placeholder="Expected Output"></textarea><br>
+        Number of Test Cases:<input type="number" name="test_cases" min="0" max="10" onchange="generate(this.value)"><br>
+        <div id="test-cases"></div>
         <input type="submit"  value="Add Problem">
     </form>
   </body>
