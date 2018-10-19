@@ -1,7 +1,5 @@
 mongoose = require('mongoose');
 bodyParser=require('body-parser');
-// mongoose.connect('mongodb://harsha:harsha123@ds149672.mlab.com:49672/codeskool');
-//var uri="mongodb://user_01:user_01@codeskool-shard-00-00-mdx6y.mongodb.net:27017,codeskool-shard-00-01-mdx6y.mongodb.net:27017,codeskool-shard-00-02-mdx6y.mongodb.net:27017/test?ssl=true&replicaSet=Codeskool-shard-0&authSource=admin&retryWrites=true";
 var uri="mongodb://localhost:27017/codeskool";
 mongoose.connect(uri,{ useNewUrlParser: true },function(err){
   if(err)
@@ -10,6 +8,7 @@ mongoose.connect(uri,{ useNewUrlParser: true },function(err){
     console.log("Connected to db");
 });
 var user = require('../models/user');
+var problem = require('../models/problem');
 var urlencodedParser = bodyParser.urlencoded({extended: true});
 module.exports=function(app){
   app.get('/',function(req,res){
@@ -42,7 +41,7 @@ module.exports=function(app){
     });
   });
   app.get('/addProblem',function(req,res) {
-    res.render('addProblem');
+    res.render('addProblem',{"data":{}});
   });
   app.post('/login',urlencodedParser,function(req,res){
     if(req.body.loguserName && req.body.logpassword){
@@ -87,8 +86,19 @@ module.exports=function(app){
   }
   });
   app.post('/addProblem',urlencodedParser,function(req,res){
-    res.json(req.body);
+    var p = {
+      tags : req.body.tags,
+      pstatement : req.body.pstatement,
+      constraints : req.body.constraints,
+      test_cases : req.body.test_cases,
+      inp : req.body.inp,
+      out : req.body.out,
+    }
+    var prob =new problem(p).save(function(err,pr){
+      if(err) throw err;
+      res.render('addProblem',{"data":{"status":'success',"msg" :'Problem added successfully'}});
+      res.json(p);
+    });
   });
-
 
 };

@@ -51,8 +51,8 @@
 					out.setAttribute('cols','30');
 					inp.setAttribute('style','resize:none');
 					out.setAttribute('style','resize:none');
-					inp.setAttribute('name','inp_'+String(value));
-					out.setAttribute('name','out_'+String(value));
+					inp.setAttribute('name','inp');
+					out.setAttribute('name','out');
 					div.innerHTML= "Test Case"+(i+1);
 					div.appendChild(inp);
 					div.innerHTML += '&nbsp;';;
@@ -83,7 +83,9 @@
         <br><label for="sample_io">Sample Input-Output</label><br>
         Number of Test Cases:<input type="number" name="test_cases" min="0" max="10" onchange="generate(this.value)"><br>
         <div id="test-cases"></div>
-        <input type="submit"  value="Add Problem">
+		<input type="submit"  value="Add Problem">
+		<% if(JSON.parse(JSON.stringify(data)).status == 'success') %>
+		<strong><%= JSON.parse(JSON.stringify(data)).msg %></strong>
     </form>
   </body>
 </html>
