@@ -13,7 +13,7 @@ var user = require('../models/user');
 var urlencodedParser = bodyParser.urlencoded({extended: true});
 module.exports=function(app){
   app.get('/',function(req,res){
-    res.render('index.html');
+    res.render('login',{"data":{}});
   });
   app.get('/login',function(req,res){
     res.render('login',{"data":{}});

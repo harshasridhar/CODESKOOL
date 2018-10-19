@@ -1,0 +1,23 @@
+$(document).ready(function(){
+    $(".login_button").on("click",function(){
+        $(".signup_card").fadeOut(5);
+        $(".signup_card").css("top","-650px");
+        $(".login_card").fadeIn(5);
+        $(".login_card").animate({top:"100px",opacity:"1"},500,"swing");
+        $(this).fadeOut(5);
+        $(".signup_button").fadeIn(5);
+        $(".welcome").fadeOut(5)
+    })
+})
+
+$(document).ready(function(){
+    $(".signup_button").on("click",function(){
+        $(".login_card").fadeOut(5);
+        $(".login_card").css("top","-650px");
+        $(".signup_card").fadeIn(5);
+        $(".signup_card").animate({top:"60px",opacity:"1"},500,"swing");
+        $(this).fadeOut(5);
+        $(".login_button").fadeIn(5);
+        $(".welcome").fadeOut(5)
+    })
+})

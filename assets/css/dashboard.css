@@ -1,0 +1,69 @@
+html,body{
+    font-family: monospace;
+    margin: 0 0;
+    height: 100%;
+    background-color: #ffffff;
+}
+  
+header{
+    box-shadow: 0px 3px 2px rgba(0, 0, 0,0.7),
+                0px 2px 2px rgb(0,0,0,0.49);
+}
+
+.username{
+    font-size: 25px;
+    float: right;
+    position: relative;
+    top: 16px;
+    margin-right: 10px;
+    color: #eee6f8;
+    font-weight: bolder;
+}
+
+.username i{
+    position: relative;
+    top: 4px;
+    margin-right: 6px;
+}
+
+.username ul{
+    width: max-content+10px;
+    position: relative;
+    top: 10px;
+    display: none;
+    background-color: #ffffff;
+    padding: 0px 0px;
+    text-align: center;
+    margin: 0px 0px;
+    border-radius: 0px 0px 8px 8px;
+    box-shadow: 0px 2px 2px rgba(0, 0, 0,0.5),
+                0px 2px 2px rgb(0,0,0,0.49);
+}
+
+.username ul li{
+    display: block;
+    padding: 5px 5px 10px 8px;
+    list-style: none;
+}
+
+.username ul li a{
+    color: #1e06a8;
+    font-size: 15px;
+    text-decoration: none;
+}
+
+.username:hover{
+    cursor: pointer;
+}
+.username:hover ul{
+    cursor: pointer;
+    display: block;
+}
+
+.username ul li:hover{
+    background-color: #dedede;
+}
+
+.username ul li:nth-last-child(1){
+    border-radius: 0px 0px 8px 8px;
+}

@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/assests/css/dashboard.css">
+    <link rel="stylesheet" href="/assests/material-design-icons/iconfont/material-icons.css">
+    <title>Dashboard</title>
+</head>
+<body>
+    <%include header.ejs%>
+    <div class="username">
+        <i class="material-icons">account_circle</i><%=username%>
+        <i class="material-icons">arrow_drop_up</i>
+        <ul>
+            <li><a href="#">My Account</a></li>
+            <li><a href="#">Logout</a></li>
+        </ul>
+    </div>
+</body>
+</html>
