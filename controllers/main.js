@@ -26,7 +26,8 @@ module.exports=function(app){
           }
           else{
             //to be replaced with a view
-            res.send("<a href='/logout'>Logout</a><br><h1>Name:</h1>"+user.userName+"<h2>Email:</h2>"+user.email);
+            // res.send("<a href='/logout'>Logout</a><br><h1>Name:</h1>"+user.userName+"<h2>Email:</h2>"+user.email);
+            res.render("dashboard",{"username" : user.userName});
           }
         }
     });

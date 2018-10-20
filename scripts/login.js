@@ -4,7 +4,7 @@ $(document).ready(function(){
         $(".signup_card").css("top","-650px");
         $(".login_card").fadeIn(5);
         $(".login_card").animate({top:"100px",opacity:"1"},500,"swing");
-        $(this).fadeOut(5);
+        $(this).fadeOut(500);
         $(".signup_button").fadeIn(5);
         $(".welcome").fadeOut(5)
     })
@@ -14,7 +14,7 @@ $(document).ready(function(){
         $(".login_card").css("top","-650px");
         $(".signup_card").fadeIn(5);
         $(".signup_card").animate({top:"60px",opacity:"1"},500,"swing");
-        $(this).fadeOut(5);
+        $(this).fadeOut(500);
         $(".login_button").fadeIn(5);
         $(".welcome").fadeOut(5)
     })
