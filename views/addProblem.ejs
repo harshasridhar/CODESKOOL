@@ -2,7 +2,8 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
-    <title>Add Problem Page</title>
+		<title>Add Problem Page</title>
+		<link rel="stylesheet" href="/assets/css/addProblem.css">
     <script type="text/javascript">
       function insertTab(o, e)
         {
@@ -71,15 +72,27 @@
   </head>
   <body>
     <form  method="post">
-        <label for="tags[]">Tags: &nbsp;</label>Check the appropriate tags<br>
-        <input type="checkbox" value="Algorithms" name="tags[]">Algorithms
-        <input type="checkbox" value="Data Structures" name="tags[]">Data Structures
-        <input type="checkbox" value="Recursion" name="tags[]">Recursion
-        <input type="checkbox" value="Dynamic Programming" name="tags[]">Dynamic Programming<br>
+				<label for="tags[]">Tags: &nbsp;</label>Check the appropriate tags<br>
+				<label class="container">Algorithms
+          <input type="checkbox" value="Algorithms" name="tags[]">
+          <span class="checkmark"></span>
+				</label>
+				<label class="container">Data Structures
+          <input type="checkbox" value="Data Structures" name="tags[]">
+          <span class="checkmark"></span>
+				</label>
+				<label class="container">Recursion
+          <input type="checkbox" value="Recursion" name="tags[]">
+          <span class="checkmark"></span>
+				</label>
+				<label class="container">Dynamic Programming
+          <input type="checkbox" value="Dynamic Programming" name="tags[]">
+          <span class="checkmark"></span>
+        </label>
         <label for="pstatement">Problem Statement:</label><br>
-        <textarea name="pstatement" rows="8" cols="80" style="resize:none" placeholder="Enter the problem details here..."></textarea>
+        <textarea class="card" name="pstatement" rows="8" cols="80" style="resize:none" placeholder="Enter the problem details here..."></textarea>
         <br><label for="constraints">Constraints</label><br>
-        <textarea name="constraints" onkeydown="insertTab(this, event);" rows="8" cols="80" style="resize:none" placeholder="Enter the problem constraints here..."></textarea><br>
+        <textarea class="card" name="constraints" onkeydown="insertTab(this, event);" rows="8" cols="80" style="resize:none" placeholder="Enter the problem constraints here..."></textarea><br>
         <br><label for="sample_io">Sample Input-Output</label><br>
         Number of Test Cases:<input type="number" name="test_cases" min="0" max="10" onchange="generate(this.value)"><br>
         <div id="test-cases"></div>

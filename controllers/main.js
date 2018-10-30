@@ -40,6 +40,10 @@ module.exports=function(app){
         res.redirect('/');
       }
     });
+
+  app.get("/addProblem",function(req,res){
+      res.render("addProblem.ejs");
+    });
   });
   app.get('/addProblem',function(req,res) {
     res.render('addProblem',{"data":{}});
