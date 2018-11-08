@@ -1,0 +1,37 @@
+<html>
+    <head>
+        <title>My Account Page</title>
+        <style>
+            input[type="checkbox"][readonly] {
+                pointer-events: none;
+            }
+        </style>
+    </head>
+    <body>
+        <% include header.ejs%> <br><br><br>
+        <table>
+            <tr><th>UserName</th><td><%= username%></td></tr>
+            <tr><th>Email Id</th><td><%= email%></td></tr>
+            <%var p = preferences %>
+            <tr><th>Preferences</th>
+                <td>
+                    <input type="checkbox"  <% if (p.indexOf('Algorithms')!=-1){ %>checked <% } %> readonly>Algorithms <br>
+                    <input type="checkbox" <% if (p.indexOf('Data Structures')!=-1){ %>checked <% } %> readonly>Data Structures <br>
+                    <input type="checkbox" <% if (p.indexOf('Dynamic Programming')!=-1){ %>checked <% } %> readonly>Dynamic Programming <br>
+                    <input type="checkbox" <% if (p.indexOf('Recursion')!=-1){ %>checked <% } %> readonly>Recursion <br>
+                    &nbsp; <input type="submit" value="Update Preferences">
+                </td>
+            </tr>
+            <tr><th>Submissions</th><td>0</td></tr>
+            <tr><th>Languages Used</th>
+                <td>
+                    <ul>
+                        <li>Python</li>
+                        <li>C</li>
+                        <li>Java</li>
+                    </ul>
+                </td>
+            </tr>
+        </table>
+    </body>
+</html>

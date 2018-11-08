@@ -25,8 +25,6 @@ module.exports=function(app){
             res.redirect('/');
           }
           else{
-            //to be replaced with a view
-            // res.send("<a href='/logout'>Logout</a><br><h1>Name:</h1>"+user.userName+"<h2>Email:</h2>"+user.email);
             res.render("dashboard",{"username" : user.userName});
           }
         }
@@ -101,5 +99,18 @@ module.exports=function(app){
       res.json(p);
     });
   });
-
+  app.get('/myAccount',function(req,res){
+    user.findById(req.session.userId).exec(function(err,user){
+      if(err) throw err;
+      else{
+        if(user == null){
+          res.redirect('/');
+        }
+        else{
+          res.render("myAccount",{"username" : user.userName,"email":user.email,"preferences":user.preferences});
+        }
+      }
+  });
+    // res.render('myAccount');
+  })
 };
