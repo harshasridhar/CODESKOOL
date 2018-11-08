@@ -71,24 +71,21 @@
     </script>
   </head>
   <body>
+		<% if(JSON.parse(JSON.stringify(data)).status == 'success') %>
+		<strong><%= JSON.parse(JSON.stringify(data)).msg %></strong>
     <form  method="post">
 				<label for="tags[]">Tags: &nbsp;</label>Check the appropriate tags<br>
-				<label class="container">Algorithms
-          <input type="checkbox" value="Algorithms" name="tags[]">
+				<% var tag_list=JSON.parse(JSON.stringify(data)).tags %>
+				<% for(var i=0;i<tag_list.length;i++) {%>
+				<label class="container"><%= tag_list[i].category %>
+          <input type="checkbox" value="<%= tag_list[i].category %>" name="tags[]">
           <span class="checkmark"></span>
 				</label>
-				<label class="container">Data Structures
-          <input type="checkbox" value="Data Structures" name="tags[]">
-          <span class="checkmark"></span>
-				</label>
-				<label class="container">Recursion
-          <input type="checkbox" value="Recursion" name="tags[]">
-          <span class="checkmark"></span>
-				</label>
-				<label class="container">Dynamic Programming
-          <input type="checkbox" value="Dynamic Programming" name="tags[]">
-          <span class="checkmark"></span>
-        </label>
+				<% }%>
+				 <br>
+				
+				<strong>Didn't find the tag?</strong>
+				<a href="/addTag">Click here</a> to add a tag <br>
         <label for="pstatement">Problem Statement:</label><br>
         <textarea class="card" name="pstatement" rows="8" cols="80" style="resize:none" placeholder="Enter the problem details here..."></textarea>
         <br><label for="constraints">Constraints</label><br>
@@ -97,8 +94,6 @@
         Number of Test Cases:<input type="number" name="test_cases" min="0" max="10" onchange="generate(this.value)"><br>
         <div id="test-cases"></div>
 		<input type="submit"  value="Add Problem">
-		<% if(JSON.parse(JSON.stringify(data)).status == 'success') %>
-		<strong><%= JSON.parse(JSON.stringify(data)).msg %></strong>
     </form>
   </body>
 </html>

@@ -1,0 +1,17 @@
+<html>
+    <head>
+        <title>Add Tag Page</title>
+    </head>
+    <body>
+        <form method="post">
+            Enter the name of the tag to be added:<input type="text" name="tag" required><br>
+            <input type="submit" value="Add Tag">
+        </form>
+        <% if(JSON.parse(JSON.stringify(data)).status == 'success') { %>
+            <strong><%= JSON.parse(JSON.stringify(data)).msg %></strong>
+        <% } %>
+        <% if(JSON.parse(JSON.stringify(data)).status == 'failed') { %>
+            <script> alert('<%= JSON.parse(JSON.stringify(data)).msg %>')</script>
+        <% } %>
+    </body>
+</html>

@@ -9,13 +9,26 @@ mongoose.connect(uri,{ useNewUrlParser: true },function(err){
 });
 var user = require('../models/user');
 var problem = require('../models/problem');
+var problemCategory = require('../models/problemCategory');
 var urlencodedParser = bodyParser.urlencoded({extended: true});
 module.exports=function(app){
   app.get('/',function(req,res){
-    res.render('login',{"data":{}});
+    var query=problemCategory.find({});
+    query.exec(function(err,tags){
+      if(err) throw err;
+      else{
+        res.render('login',{"data":{"tags":tags}});
+      }
+    });
   });
   app.get('/login',function(req,res){
-    res.render('login',{"data":{}});
+    var query=problemCategory.find({});
+    query.exec(function(err,tags){
+      if(err) throw err;
+      else{
+        res.render('login',{"data":{"tags":tags}});
+      }
+    });
   });
   app.get('/profile',function(req,res){
     user.findById(req.session.userId).exec(function(err,user){
@@ -38,7 +51,12 @@ module.exports=function(app){
   
   
   app.get('/addProblem',function(req,res) {
-    res.render('addProblem',{"data":{}});
+    var query=problemCategory.find({});
+    query.exec(function(err,tags){
+      if(err) throw err;
+      else
+      res.render('addProblem',{"data":{"tags":tags}});
+    });
   });
   app.post('/login',urlencodedParser,function(req,res){
     if(req.body.loguserName && req.body.logpassword){
@@ -91,10 +109,16 @@ module.exports=function(app){
       inp : req.body.inp,
       out : req.body.out,
     }
-    var prob =new problem(p).save(function(err,pr){
+    var query=problemCategory.find({});
+    query.exec(function(err,tags){
       if(err) throw err;
-      res.render('addProblem',{"data":{"status":'success',"msg" :'Problem added successfully'}});
-      res.json(p);
+      else{
+        var prob =new problem(p).save(function(err,pr){
+          if(err) throw err;
+          res.render('addProblem',{"data":{"tags":tags,"status":'success',"msg" :'Problem added successfully'}});
+          // res.json(p);
+        });
+      }
     });
   });
   app.get('/myAccount',function(req,res){
@@ -110,5 +134,31 @@ module.exports=function(app){
       }
   });
     // res.render('myAccount');
-  })
+  });
+  app.get('/addTag',function(req,res){
+    res.render('addTag',{"data":{}})
+  });
+  app.post('/addTag',urlencodedParser,function(req,res){
+      var cat = {
+        category : req.body.tag
+      };
+      var query=problemCategory.find({});
+      query.where('category',cat.category);
+      query.exec(function(err,tags){
+        if(err) throw err;
+        else{
+          console.log(tags);
+          if(tags.length !=0 ){
+            res.render('addTag',{"data":{"status":"failed","msg":"Tag already exists!!"}});
+          }
+          else{
+            var probCat =new problemCategory(cat).save(function(err,pr){
+              if(err) throw err;
+              res.render('addTag',{"data":{"status":'success',"msg" :'Tag added successfully'}});
+            });
+          }
+        }
+      });
+      
+  });
 };
