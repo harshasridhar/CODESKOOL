@@ -22,7 +22,7 @@ module.exports=function(app){
         if(err) throw err;
         else{
           if(user == null){
-            res.send('Not Authorized, go back bro!!!');
+            res.redirect('/');
           }
           else{
             //to be replaced with a view
@@ -32,19 +32,15 @@ module.exports=function(app){
         }
     });
   });
-  app.get('/logout',function(req,res){
-    req.session.destroy(function(err) {
-      if(err) {
-        console.log(err);
-      } else {
-        res.redirect('/');
-      }
-    });
+  app.get('/logout', function(req, res) {
+    req.session.userId = null;
+    res.redirect('/');
+  });
 
   app.get("/addProblem",function(req,res){
       res.render("addProblem.ejs");
     });
-  });
+  
   app.get('/addProblem',function(req,res) {
     res.render('addProblem',{"data":{}});
   });

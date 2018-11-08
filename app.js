@@ -12,7 +12,8 @@ app.set('trust proxy', 1) // trust first proxy
 //   saveUninitialized: true,
 //   cookie: { secure: true }
 // }));
-
+var noacache = require('nocache');
+app.use(noacache());
 app.use(session({secret: 'your secret'}));
 // var cookieParser = require('cookie-parser')
 // app.use(cookieParser);
