@@ -30,6 +30,16 @@ module.exports=function(app){
       }
     });
   });
+  app.post('/check',urlencodedParser,function(req,res){
+    tags=[];
+    reqtags=req.body.tags;
+    for(var i=0;i<reqtags.length;i++){
+      tags.push({"tags":reqtags[i]});
+    }
+    problem.find({ $or : tags },function(err,docs){
+      res.render('practice',{"docs": docs,"tags": reqtags});
+    });
+  });
   app.get('/profile',function(req,res){
     user.findById(req.session.userId).exec(function(err,user){
         if(err) throw err;
@@ -47,7 +57,11 @@ module.exports=function(app){
     req.session.userId = null;
     res.redirect('/');
   });
-
+  app.get('/practice',function(req,res){
+    problem.find({},function(err,docs){
+      res.render('practice',{"docs": docs,"tags": []});
+    });
+  });
   
   
   app.get('/addProblem',function(req,res) {

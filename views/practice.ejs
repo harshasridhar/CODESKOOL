@@ -1,0 +1,78 @@
+<html>
+    <head>
+        <title>Practice Page</title>
+        <style media="screen">
+                div{
+                  background-color: grey;
+                  display : block ;
+                }
+                .left div:hover{
+                  font-size : 30px;
+                }
+                .split {
+                  height: 100%;
+                  /* width: 50%; */
+                  position: fixed;
+                  z-index: 1;
+                  top: 0;
+                  /* overflow-x: hidden; */
+                  padding-top: 20px;
+                }
+          
+                /* Control the left side */
+                .left {
+                  left: 0;
+                  width: 75%;
+                  background-color: rgb(174,174,174);
+                  overflow: auto;
+                }
+          
+                /* Control the right side */
+                .right {
+                  right: 0;
+                  width: 15%;
+                  overflow: scroll;
+                  background-color: white;
+                }
+        </style>
+        <script type="text/javascript">
+            function clicked(value){
+              var tags = []
+                var categories="Selected Tags:\n";
+                var form = document.getElementById('categories');
+                var boxes = form.getElementsByTagName('input');
+                for(var i = 0; i< boxes.length;i++){
+                  if(boxes[i].type === 'checkbox' && boxes[i].checked == true){
+                    tags.push(boxes[i].value);
+                    categories += boxes[i].value+"\n";
+                  }
+                }
+                // document.getElementById('selected').innerHTML = categories;
+                document.getElementById('categories').submit();
+            }
+          </script>
+    </head>
+    <body>
+        <div class="split left">
+            <h1>Problems</h1>
+            <% for(var i=0;i<docs.length;i++) {%>
+                    <div class="problem">
+                      <strong>Problem Statement:</strong><br>
+                      <%= JSON.parse(JSON.stringify(docs[i])).pstatement %><br>
+                      <form action="solve" method="post" >
+                        <input type="text" name="id" hidden value="<%= JSON.parse(JSON.stringify(docs[i]))._id %>">
+                        <input type="submit" name="" value="Solve">
+                      </form>
+                    </div> <br>
+            <% }%>
+        </div>
+        <div class="split right">
+            <form action="check" method="post" id="categories">
+                <input type="checkbox" name="tags[]" value="Algorithms" onclick="clicked(this.value);" <% if(tags!= undefined && tags.indexOf('Algorithms')!= -1){ %> checked <% } %> >Algorithms <br>
+                <input type="checkbox" name="tags[]" value="Data Structures" onclick="clicked(this.value);" <% if(tags!= undefined && tags.indexOf('Data Structures')!= -1){ %> checked <% } %> >Data Structures <br>
+                <input type="checkbox" name="tags[]" value="Recursion" onclick="clicked(this.value);" <% if(tags!= undefined && tags.indexOf('Recursion')!= -1){ %> checked <% } %> >Recursion <br>
+                <input type="checkbox" name="tags[]" value="Dynamic Programming" onclick="clicked(this.value); <% if(tags!= undefined && tags.indexOf('Dynamic Programming')!= -1){ %> checked <% } %> ">Dynamic Programming <br>
+            </form>
+        </div>
+    </body>
+</html>
