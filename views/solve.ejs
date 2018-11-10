@@ -1,0 +1,102 @@
+<html>
+    <head>
+        <title>Solve Problem Page</title>
+        <style>
+            /* Split the screen in half */
+            .split {
+            height: 100%;
+            /* width: 50%; */
+            position: fixed;
+            z-index: 1;
+            top: 0;
+            /* overflow-x: hidden; */
+            padding-top: 20px;
+            }
+
+            /* Control the left side */
+            .left {
+            left: 0;
+            width: 40%;
+            background-color: rgb(174,174,174);
+            overflow: auto;
+            }
+
+            /* Control the right side */
+            .right {
+            right: 0;
+            width: 60%;
+            overflow: scroll;
+            background-color: white;
+            }
+        </style>
+        <script type="text/javascript">
+            var c = "#include<stdio.h>\nvoid main(){\n\t//Enter your code here\n\n}";
+            var cpp = "include<iostream>\nusing namespace std;\nint main(){\n\t//Enter your code here\n\n}";
+            var java = "import java.io.*;\npublic class Main{\n\tpublic static void main(String[] args){\n\t//Enter your code here\n\n\t}\n}";
+            var python3 = "#Enter your code here\n"
+            function changeLang(){
+                var language = document.getElementById('language').value;
+                var r = confirm("Language will be changed and all the previous changes will be lost");
+                if(r == true){
+                    if(language == 'C'){
+                        document.getElementById('language').value="C";
+                        document.getElementById('code').innerHTML = c;
+                    }
+                    else if(language == 'C++'){
+                        document.getElementById('language').value="C++";
+                        document.getElementById('code').innerHTML = cpp;
+                    }
+                    else if(language == 'Java'){
+                        document.getElementById('language').value="Java";
+                        document.getElementById('code').innerHTML = java;
+                    }
+                    else if(language == 'Python3'){
+                        document.getElementById('language').value="Python3";
+                        document.getElementById('code').innerHTML = python3;
+                    }
+                }
+                else{
+                    alert('Language not changed');
+                }
+            }
+        </script>
+    </head>
+    <body>
+        <div class="split left">
+            <h2>Problem Statement</h2>
+            <%= docs.pstatement %>
+            <h2>Constraints</h2>
+            <% if(docs.constraints == '') { %>
+                No constraints
+            <% } %>
+            <% if(docs.constraints != '') { %>
+                <%= docs.constraints %>
+            <% } %>
+            <h2>Test Cases</h2>
+            <% if(docs.test_cases == null){ %>
+                No Test cases
+            <%}%>
+            <% if(docs.test_cases != null) { %>
+                Number of Test Cases: <%= docs.test_cases %> <br>
+                Sample input: <pre><%= docs.inp[0] %></pre> <br>
+                Sample ouput: <pre><%= docs.out[0] %></pre>
+            <% } %>
+        </div>
+        <div class="split right">
+            <h2>Code</h2>
+            Select the language: 
+            <select id="language" onchange="changeLang()">
+                <option value="C">C</option>
+                <option value="C++">C++</option>
+                <option value="Java">Java</option>
+                <option value="Python3">Python3</option>
+            </select><br>
+            <textarea id="code"  cols="80" rows="40" style="resize:none"></textarea>
+            <h3>Input</h3>
+            <textarea name="input" cols="30" rows="10" placeholder="Enter the input to your program here..." style="resize:none"></textarea>
+            <br><input type="submit" value="Compile and Run"><br>
+            <h3>Output</h3>
+            <textarea name="ouput" cols="30" rows="10" placeholder="Output will be displayed here" style="resize:none" readonly></textarea>
+        </div>
+    </body>
+</html>

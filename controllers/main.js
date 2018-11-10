@@ -184,6 +184,14 @@ module.exports=function(app){
           }
         }
       });
-      
-  });
+    });
+    app.get('/solve',function(req,res){
+      res.render('solve');
+    });
+    app.post('/solve',urlencodedParser,function(req,res){
+      problem.findById(req.body.id).exec(function(err,docs){
+        if(err) throw err;
+        res.render('solve',{"docs":docs});
+      });
+    });
 };
