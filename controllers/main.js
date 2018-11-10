@@ -7,10 +7,15 @@ mongoose.connect(uri,{ useNewUrlParser: true },function(err){
   else
     console.log("Connected to db");
 });
+var fs = require('fs');
 var user = require('../models/user');
 var problem = require('../models/problem');
 var problemCategory = require('../models/problemCategory');
 var urlencodedParser = bodyParser.urlencoded({extended: true});
+const {c, cpp, node, python, java} = require('compile-run');
+var Promise = require('bluebird');
+var cmd = require('node-cmd');
+const getAsync = Promise.promisify(cmd.get, { multiArgs: true, context: cmd })
 module.exports=function(app){
   app.get('/',function(req,res){
     var query=problemCategory.find({});
@@ -191,7 +196,109 @@ module.exports=function(app){
     app.post('/solve',urlencodedParser,function(req,res){
       problem.findById(req.body.id).exec(function(err,docs){
         if(err) throw err;
-        res.render('solve',{"docs":docs});
+        res.render('solve',{"docs":docs,"code":'',"input":'',"output":'',"lang":'',"stderr":''});
       });
+    });
+    app.post('/compile',urlencodedParser,function(req,res){
+      if(req.body.language == 'C'){
+        fs.writeFile('main.c',req.body.code,(err) => {
+          if (err) throw err;
+          console.log('The code file has been saved!');
+        });
+        c.runFile('main.c',{stdin : req.body.input},(err, result) => {
+          if(err){
+              console.log(err);
+          }
+          else{
+            console.log(req.body.doc_id);
+            problem.findById(req.body.doc_id).exec(function(err,docs){
+              if(err) throw err;
+              console.log(docs);
+              getAsync('del main.c input.txt error.txt').then(data => {
+                console.log('File deleted', data)
+              }).catch(err => {
+                console.log('cmd err', err)
+              });
+              res.render('solve',{"docs":docs,"code":req.body.code,"input":req.body.input,"output":result.stdout,"lang":req.body.language,"stderr":result.stderr})
+              // res.send("<pre>"+result.stdout+"</pre>")
+              console.log(result);
+          });
+        }
+      });
+      }
+      else if(req.body.language == 'C++'){
+        fs.writeFile('main.cpp',req.body.code,(err) => {
+          if (err) throw err;
+          console.log('The code file has been saved!');
+        });
+        cpp.runFile('main.cpp',{stdin : req.body.input},(err, result) => {
+          if(err){
+              console.log(err);
+          }
+          else{
+            problem.findById(req.body.doc_id).exec(function(err,docs){
+              if(err) throw err;
+              getAsync('del main.cpp input.txt error.txt').then(data => {
+                console.log('File deleted', data)
+              }).catch(err => {
+                console.log('cmd err', err)
+              });
+              res.render('solve',{"docs":docs,"code":req.body.code,"input":req.body.input,"output":result.stdout,"lang":req.body.language,"stderr":result.stderr})
+              // res.send("<pre>"+result.stdout+"</pre>")
+              console.log(result);
+          });
+        }
+      });
+      }
+      else if(req.body.language == 'Python3'){
+        fs.writeFile('main.py',req.body.code,(err)=>{
+          if(err) throw err;
+          console.log("The code file has been saved!");
+        });
+        python.runFile('main.py',{stdin : req.body.input},(err,result)=>{
+          if(err){
+              console.log(err);
+          }
+          else{
+            problem.findById(req.body.doc_id).exec(function(err,docs){
+              if(err) throw err;
+              getAsync('del main.py input.txt error.txt').then(data => {
+                console.log('File deleted', data)
+              }).catch(err => {
+                console.log('cmd err', err)
+              });
+              res.render('solve',{"docs":docs,"code":req.body.code,"input":req.body.input,"output":result.stdout,"lang":req.body.language,"stderr":result.stderr})
+              // res.send("<pre>"+result.stdout+"</pre>")
+              console.log(result);
+            });
+          }
+        });
+      }  
+      else if(req.body.language == 'Java'){
+        fs.writeFile('Main.java',req.body.code,(err)=>{
+          if(err) throw err;
+          console.log("The code file has been saved!");
+        });
+        java.runFile('Main.java',{stdin : req.body.input},(err,result)=>{
+          if(err){
+              // fs.writeFile('error.txt',err);
+              console.log('Error here');
+              console.log(err);
+          }
+          else{
+            problem.findById(req.body.doc_id).exec(function(err,docs){
+              if(err) throw err;
+              getAsync('del Main.java').then(data => {
+                console.log('File deleted', data)
+              }).catch(err => {
+                console.log('cmd err', err)
+              });
+              res.render('solve',{"docs":docs,"code":req.body.code,"input":req.body.input,"output":result.stdout,"lang":req.body.language,"stderr":result.stderr})
+              // res.send("<pre>"+result.stdout+"</pre>")
+              console.log(result);
+            });
+          }
+        });
+      }
     });
 };

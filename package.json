@@ -10,11 +10,13 @@
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.18.3",
+    "compile-run": "^2.1.4",
     "ejs": "^2.6.1",
     "express": "^4.16.3",
     "express-session": "^1.15.6",
     "mongoose": "^5.2.14",
     "nocache": "^2.0.0",
+    "node-cmd": "^3.0.0",
     "nodemon": "^1.18.4"
   }
 }
