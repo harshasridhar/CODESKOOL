@@ -37,7 +37,12 @@ module.exports=function(app){
       tags.push({"tags":reqtags[i]});
     }
     problem.find({ $or : tags },function(err,docs){
-      res.render('practice',{"docs": docs,"tags": reqtags});
+      var query=problemCategory.find({});
+      query.exec(function(err,disptags){
+        if(err) throw err;
+        else
+          res.render('practice',{"docs": docs,"tags": reqtags,"disptags":disptags});
+      });
     });
   });
   app.get('/profile',function(req,res){
@@ -59,7 +64,13 @@ module.exports=function(app){
   });
   app.get('/practice',function(req,res){
     problem.find({},function(err,docs){
-      res.render('practice',{"docs": docs,"tags": []});
+      var query=problemCategory.find({});
+      query.exec(function(err,disptags){
+      if(err) throw err;
+      else{
+        res.render('practice',{"docs": docs,"tags": [],"disptags":disptags});
+      }
+      });
     });
   });
   
