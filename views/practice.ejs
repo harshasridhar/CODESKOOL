@@ -48,7 +48,16 @@
                   }
                 }
                 // document.getElementById('selected').innerHTML = categories;
-                document.getElementById('categories').submit();
+                if(tags.length != 0)
+                    document.getElementById('categories').submit();
+                else{
+                    var form = document.createElement('form');
+                    form.setAttribute('action','practice');
+                    form.setAttribute('method','get');
+                    form.setAttribute('id','getreq');
+                    document.getElementById('categories').appendChild(form);
+                    document.getElementById('getreq').submit();
+                }
             }
           </script>
     </head>
@@ -71,7 +80,7 @@
                 <input type="checkbox" name="tags[]" value="Algorithms" onclick="clicked(this.value);" <% if(tags!= undefined && tags.indexOf('Algorithms')!= -1){ %> checked <% } %> >Algorithms <br>
                 <input type="checkbox" name="tags[]" value="Data Structures" onclick="clicked(this.value);" <% if(tags!= undefined && tags.indexOf('Data Structures')!= -1){ %> checked <% } %> >Data Structures <br>
                 <input type="checkbox" name="tags[]" value="Recursion" onclick="clicked(this.value);" <% if(tags!= undefined && tags.indexOf('Recursion')!= -1){ %> checked <% } %> >Recursion <br>
-                <input type="checkbox" name="tags[]" value="Dynamic Programming" onclick="clicked(this.value); <% if(tags!= undefined && tags.indexOf('Dynamic Programming')!= -1){ %> checked <% } %> ">Dynamic Programming <br>
+                <input type="checkbox" name="tags[]" value="Dynamic Programming" onclick="clicked(this.value);"<% if(tags!= undefined && tags.indexOf('Dynamic Programming')!= -1){ %> checked <% } %> >Dynamic Programming <br>
             </form>
         </div>
     </body>
