@@ -71,10 +71,11 @@
     </script>
   </head>
   <body>
+		<%include header.ejs%>
 		<% if(JSON.parse(JSON.stringify(data)).status == 'success') %>
 		<strong><%= JSON.parse(JSON.stringify(data)).msg %></strong>
     <form  method="post">
-				<label for="tags[]">Tags: &nbsp;</label>Check the appropriate tags<br>
+				<label for="tags[]">Tags: &nbsp;</label>Check the appropriate tags<br><br>
 				<% var tag_list=JSON.parse(JSON.stringify(data)).tags %>
 				<% for(var i=0;i<tag_list.length;i++) {%>
 				<label class="container"><%= tag_list[i].category %>
@@ -85,10 +86,10 @@
 				 <br>
 				
 				<strong>Didn't find the tag?</strong>
-				<a href="/addTag">Click here</a> to add a tag <br>
-        <label for="pstatement">Problem Statement:</label><br>
+				<a href="/addTag">Click here</a> to add a tag <br><br><br>
+        <label for="pstatement">Problem Statement:</label><br><br>
         <textarea class="card" name="pstatement" rows="8" cols="80" style="resize:none" placeholder="Enter the problem details here..."></textarea>
-        <br><label for="constraints">Constraints</label><br>
+        <br><label for="constraints">Constraints</label><br><br>
         <textarea class="card" name="constraints" onkeydown="insertTab(this, event);" rows="8" cols="80" style="resize:none" placeholder="Enter the problem constraints here..."></textarea><br>
         <br><label for="sample_io">Sample Input-Output</label><br>
         Number of Test Cases:<input type="number" name="test_cases" min="0" max="10" onchange="generate(this.value)"><br>
