@@ -196,7 +196,7 @@ module.exports=function(app){
     app.post('/solve',urlencodedParser,function(req,res){
       problem.findById(req.body.id).exec(function(err,docs){
         if(err) throw err;
-        res.render('solve',{"docs":docs,"code":'',"input":'',"output":'',"lang":'',"stderr":''});
+        res.render('solve',{"docs":docs,"code":'',"input":'',"output":'',"lang":'',"stderr":'',"theme":'default'});
       });
     });
     app.post('/compile',urlencodedParser,function(req,res){
@@ -219,7 +219,7 @@ module.exports=function(app){
               }).catch(err => {
                 console.log('cmd err', err)
               });
-              res.render('solve',{"docs":docs,"code":req.body.code,"input":req.body.input,"output":result.stdout,"lang":req.body.language,"stderr":result.stderr})
+              res.render('solve',{"docs":docs,"code":req.body.code,"input":req.body.input,"output":result.stdout,"lang":req.body.language,"stderr":result.stderr,"theme":req.body.theme})
               // res.send("<pre>"+result.stdout+"</pre>")
               console.log(result);
           });
@@ -243,7 +243,7 @@ module.exports=function(app){
               }).catch(err => {
                 console.log('cmd err', err)
               });
-              res.render('solve',{"docs":docs,"code":req.body.code,"input":req.body.input,"output":result.stdout,"lang":req.body.language,"stderr":result.stderr})
+              res.render('solve',{"docs":docs,"code":req.body.code,"input":req.body.input,"output":result.stdout,"lang":req.body.language,"stderr":result.stderr,"theme":req.body.theme})
               // res.send("<pre>"+result.stdout+"</pre>")
               console.log(result);
           });
@@ -267,7 +267,7 @@ module.exports=function(app){
               }).catch(err => {
                 console.log('cmd err', err)
               });
-              res.render('solve',{"docs":docs,"code":req.body.code,"input":req.body.input,"output":result.stdout,"lang":req.body.language,"stderr":result.stderr})
+              res.render('solve',{"docs":docs,"code":req.body.code,"input":req.body.input,"output":result.stdout,"lang":req.body.language,"stderr":result.stderr,"theme":req.body.theme})
               // res.send("<pre>"+result.stdout+"</pre>")
               console.log(result);
             });
@@ -293,7 +293,7 @@ module.exports=function(app){
               }).catch(err => {
                 console.log('cmd err', err)
               });
-              res.render('solve',{"docs":docs,"code":req.body.code,"input":req.body.input,"output":result.stdout,"lang":req.body.language,"stderr":result.stderr})
+              res.render('solve',{"docs":docs,"code":req.body.code,"input":req.body.input,"output":result.stdout,"lang":req.body.language,"stderr":result.stderr,"theme":req.body.theme})
               // res.send("<pre>"+result.stdout+"</pre>")
               console.log(result);
             });

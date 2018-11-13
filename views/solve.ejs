@@ -3,6 +3,9 @@
         <title>Solve Problem Page</title>
         <link rel="stylesheet" href="/assets/css/solve.css">
         <link rel="stylesheet" href="http://codemirror.net/lib/codemirror.css">
+        <link rel="stylesheet" href="http://codemirror.net/theme/3024-night.css">
+        <link rel="stylesheet" href="http://codemirror.net/theme/abcdef.css">
+        <link rel="stylesheet" href="http://codemirror.net/theme/blackboard.css">
         <script src="http://codemirror.net/lib/codemirror.js"></script>
         <script src="http://codemirror.net/addon/edit/matchbrackets.js"></script>
         <script src="http://codemirror.net/addon/edit/continuecomment.js"></script>
@@ -21,6 +24,7 @@
                 editor = CodeMirror.fromTextArea(document.getElementById("code"), {
                 lineNumbers: true
                 });
+                
                 if($("#language").val!= 'def'){
                     var l = $("#language").val();
                     var lang_mode='';
@@ -32,7 +36,7 @@
                     }
                     editor.setOption("mode",lang_mode);
                 }
-                $("select").on('change',function(){
+                $("#language").on('change',function(){
                     var r = confirm("Language will be changed and all the previous changes will be lost");
                     if(r == true){
                         var lang = $("#language").val();
@@ -66,9 +70,9 @@
                         alert('Language Not changed');
                     }
                 });
-                function callAlert(){
-                    alert(editor.getOption("value"));
-                }
+                $("#theme").on('change',function(){
+                    editor.setOption("theme",$("#theme").val());
+                })
             });
         </script>
         <script type="text/javascript">
@@ -135,16 +139,21 @@
                 <p id="out" hidden><%=stderr%></p>
             <% } %>
             <h2>Code</h2>
-            Select the language:
             <form action="compile" method="post">
                 <input type="text" name="doc_id" value='<%=docs._id%>' hidden>
-                <select id="language" name="language">
+                Language: <select id="language" name="language">
                     <option default value="def">Select Language</option>
                     <option value="C" <% if( lang!= '' && lang == 'C'){%> selected<%}%>>C</option>
                     <option value="C++" <% if( lang!= '' && lang == 'C++'){%> selected<%}%>>C++</option>
                     <option value="Java" <% if( lang!= '' && lang == 'Java'){%> selected<%}%>>Java</option>
                     <option value="Python3" <% if( lang!= '' && lang == 'Python3'){%> selected<%}%>>Python3</option>
-                </select><br>
+                </select> Theme:
+                <select id="theme" name="theme">
+                    <option value="default">default</option>
+                    <option value="3024-night">3024-night</option>
+                    <option value="abcdef">abcdef</option>
+                    <option value="blackboard">blackboard</option>
+                </select> <br>
               <textarea id="code" name="code"  cols="80" rows="40" style="resize:none" value="<%if (code!=''){ %><%=code%><%}%>"><%=code%></textarea>
               <script> enableTab('code');</script>
               <h3>Input</h3>
@@ -154,11 +163,7 @@
               <h3>Output</h3>
               <textarea id="output" name="ouput" cols="70" rows="10" placeholder="Output will be displayed here" style="resize:none" readonly value="<%if (output!=''){ %><%=output%><%}%>"></textarea>
           </form>
-            <script>
-                // var v=$("#cod").val();
-                // console.log('Here '+v);
-                // editor.setOption("value",v);
-            document.getElementById("code").innerHTML=document.getElementById("cod").textContent;</script>
+            <script>document.getElementById("code").innerHTML=document.getElementById("cod").textContent;</script>
             <script>document.getElementById("input").innerHTML=document.getElementById("inp").textContent;</script>
             <script>document.getElementById("output").innerHTML=document.getElementById("out").textContent;</script>
             
