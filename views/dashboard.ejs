@@ -14,14 +14,6 @@
 </head>
 <body>
     <%include header.ejs%>
-    <div class="username">
-        <i class="material-icons">account_circle</i><%=username%>
-        <i class="material-icons">arrow_drop_up</i>
-        <ul>
-            <li><a href="myAccount">My Account</a></li>
-            <li><a href="logout">Logout</a></li>
-        </ul>
-    </div>
     <div class="option practice"><i class="material-icons" style="font-size: 70px;">code</i><form action="practice" method="get"><input type="submit" value="Practice" name="practice"></form></div>
     <div class="option problem"><i class="material-icons" style="font-size: 50px;">border_color</i><form action="addProblem" method="get"><input type="submit" value="Submit questions" name="submit questions"></form></div>
 </body>

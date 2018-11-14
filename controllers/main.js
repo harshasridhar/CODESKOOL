@@ -46,7 +46,7 @@ module.exports=function(app){
       query.exec(function(err,disptags){
         if(err) throw err;
         else
-          res.render('practice',{"docs": docs,"tags": reqtags,"disptags":disptags});
+          res.render('practice',{"docs": docs,"tags": reqtags,"disptags":disptags,"username":req.session.username});
       });
     });
   });
@@ -73,7 +73,7 @@ module.exports=function(app){
       query.exec(function(err,disptags){
       if(err) throw err;
       else{
-        res.render('practice',{"docs": docs,"tags": [],"disptags":disptags});
+        res.render('practice',{"docs": docs,"tags": [],"disptags":disptags,"username":req.session.username});
       }
       });
     });
@@ -85,7 +85,7 @@ module.exports=function(app){
     query.exec(function(err,tags){
       if(err) throw err;
       else
-      res.render('addProblem',{"data":{"tags":tags}});
+      res.render('addProblem',{"data":{"tags":tags},"username":req.session.username});
     });
   });
   app.post('/login',urlencodedParser,function(req,res){
@@ -93,10 +93,10 @@ module.exports=function(app){
       var q=user.findOne({ userName : req.body.loguserName, password : user.hash(req.body.logpassword) },function(err,user){
           if (err) throw err;
           if(user == null)
-            res.render('login',{"data":{"status":'failed',"l_msg":"Credentials are incorrect!!"}});
+            res.render('login',{"data":{"status":'failed',"l_msg":"Credentials are incorrect!!"},"username":req.body.loguserName});
           else{
-            var sesh = req.session;
-            sesh.userId = user._id;
+            req.session.userId = user._id;
+            req.session.username = req.body.loguserName;
             res.redirect('/profile');
           }
       });
@@ -145,7 +145,7 @@ module.exports=function(app){
       else{
         var prob =new problem(p).save(function(err,pr){
           if(err) throw err;
-          res.render('addProblem',{"data":{"tags":tags,"status":'success',"msg" :'Problem added successfully'}});
+          res.render('addProblem',{"data":{"tags":tags,"status":'success',"msg" :'Problem added successfully',"username":req.session.username}});
           // res.json(p);
         });
       }
@@ -166,7 +166,7 @@ module.exports=function(app){
     // res.render('myAccount');
   });
   app.get('/addTag',function(req,res){
-    res.render('addTag',{"data":{}})
+    res.render('addTag',{"data":{},"username":req.session.username})
   });
   app.post('/addTag',urlencodedParser,function(req,res){
       var cat = {
@@ -179,24 +179,24 @@ module.exports=function(app){
         else{
           console.log(tags);
           if(tags.length !=0 ){
-            res.render('addTag',{"data":{"status":"failed","msg":"Tag already exists!!"}});
+            res.render('addTag',{"data":{"status":"failed","msg":"Tag already exists!!"},"username":req.session.username});
           }
           else{
             var probCat =new problemCategory(cat).save(function(err,pr){
               if(err) throw err;
-              res.render('addTag',{"data":{"status":'success',"msg" :'Tag added successfully'}});
+              res.render('addTag',{"data":{"status":'success',"msg" :'Tag added successfully'},"username":req.session.username});
             });
           }
         }
       });
     });
     app.get('/solve',function(req,res){
-      res.render('solve');
+      res.render('solve',{"username":req.session.username});
     });
     app.post('/solve',urlencodedParser,function(req,res){
       problem.findById(req.body.id).exec(function(err,docs){
         if(err) throw err;
-        res.render('solve',{"docs":docs,"code":'',"input":'',"output":'',"lang":'',"stderr":'',"theme":'default'});
+        res.render('solve',{"docs":docs,"code":'',"input":'',"output":'',"lang":'',"stderr":'',"theme":'default',"username":req.session.username});
       });
     });
     app.post('/compile',urlencodedParser,function(req,res){
@@ -219,7 +219,7 @@ module.exports=function(app){
               }).catch(err => {
                 console.log('cmd err', err)
               });
-              res.render('solve',{"docs":docs,"code":req.body.code,"input":req.body.input,"output":result.stdout,"lang":req.body.language,"stderr":result.stderr,"theme":req.body.theme})
+              res.render('solve',{"docs":docs,"code":req.body.code,"input":req.body.input,"output":result.stdout,"lang":req.body.language,"stderr":result.stderr,"theme":req.body.theme,"username":req.session.username})
               // res.send("<pre>"+result.stdout+"</pre>")
               console.log(result);
           });
@@ -243,7 +243,7 @@ module.exports=function(app){
               }).catch(err => {
                 console.log('cmd err', err)
               });
-              res.render('solve',{"docs":docs,"code":req.body.code,"input":req.body.input,"output":result.stdout,"lang":req.body.language,"stderr":result.stderr,"theme":req.body.theme})
+              res.render('solve',{"docs":docs,"code":req.body.code,"input":req.body.input,"output":result.stdout,"lang":req.body.language,"stderr":result.stderr,"theme":req.body.theme,"username":req.session.username})
               // res.send("<pre>"+result.stdout+"</pre>")
               console.log(result);
           });
@@ -267,7 +267,7 @@ module.exports=function(app){
               }).catch(err => {
                 console.log('cmd err', err)
               });
-              res.render('solve',{"docs":docs,"code":req.body.code,"input":req.body.input,"output":result.stdout,"lang":req.body.language,"stderr":result.stderr,"theme":req.body.theme})
+              res.render('solve',{"docs":docs,"code":req.body.code,"input":req.body.input,"output":result.stdout,"lang":req.body.language,"stderr":result.stderr,"theme":req.body.theme,"username":req.session.username})
               // res.send("<pre>"+result.stdout+"</pre>")
               console.log(result);
             });
@@ -293,7 +293,7 @@ module.exports=function(app){
               }).catch(err => {
                 console.log('cmd err', err)
               });
-              res.render('solve',{"docs":docs,"code":req.body.code,"input":req.body.input,"output":result.stdout,"lang":req.body.language,"stderr":result.stderr,"theme":req.body.theme})
+              res.render('solve',{"docs":docs,"code":req.body.code,"input":req.body.input,"output":result.stdout,"lang":req.body.language,"stderr":result.stderr,"theme":req.body.theme,"username":req.session.username})
               // res.send("<pre>"+result.stdout+"</pre>")
               console.log(result);
             });

@@ -1,1 +1,13 @@
+<link rel="stylesheet" href="/assets/css/header.css">
+<link rel="stylesheet" href="/assets/material-design-icons/iconfont/material-icons.css">
 <header style="background-color:#3d18b3;height: 60px;width: 100%;position: absolute; top: 0px;"><img src="/assets/images/codeskool.png" style="width: 150px;position: relative;top: 10px;left: 10px;"></header>
+<%if (locals.username){%>
+<div class="username">
+    <i class="material-icons">account_circle</i><%=username%>
+    <i class="material-icons">arrow_drop_up</i>
+    <ul>
+        <li><a href="myAccount">My Account</a></li>
+        <li><a href="logout">Logout</a></li>
+    </ul>
+</div>
+<%}%>
