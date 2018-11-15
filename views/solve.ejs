@@ -158,15 +158,17 @@
               <script> enableTab('code');</script>
               <h3>Input</h3>
               <textarea id="input" name="input" cols="30" rows="10" placeholder="Enter the input to your program here..." style="resize:none" value="<%if (input!=''){ %><%input%><%}%>"></textarea>
-              <br><input type="submit" id="cnr" value="Compile and Run" onClick="btnclick()">
-              &nbsp; &nbsp; <input type="submit" id="sub" value="Submit Code">
+              <br><input type="submit" name="sub" id="cnr" value="Compile and Run" onClick="btnclick()">
+              &nbsp; &nbsp; <input type="submit" name="sub" id="sub" value="Submit Code"><br>
+              <% if(substat != '') { %>
+                <strong><%= substat%></strong>
+                <% }%><br>
               <h3>Output</h3>
               <textarea id="output" name="ouput" cols="70" rows="10" placeholder="Output will be displayed here" style="resize:none" readonly value="<%if (output!=''){ %><%=output%><%}%>"></textarea>
           </form>
             <script>document.getElementById("code").innerHTML=document.getElementById("cod").textContent;</script>
             <script>document.getElementById("input").innerHTML=document.getElementById("inp").textContent;</script>
             <script>document.getElementById("output").innerHTML=document.getElementById("out").textContent;</script>
-            
         </aside>
     </body>
 </html>

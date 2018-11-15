@@ -17,6 +17,7 @@
     "mongoose": "^5.2.14",
     "nocache": "^2.0.0",
     "node-cmd": "^3.0.0",
-    "nodemon": "^1.18.4"
+    "nodemon": "^1.18.4",
+    "wait-for-stuff": "^1.4.0"
   }
 }
