@@ -4,6 +4,8 @@
     <meta charset="utf-8">
 		<title>Add Problem Page</title>
 		<link rel="stylesheet" href="/assets/css/addProblem.css">
+		<script src="/scripts/jquery/dist/jquery.min.js"></script>
+		<script src="/scripts/addProblem.js"></script>
     <script type="text/javascript">
       function insertTab(o, e)
         {
@@ -72,9 +74,10 @@
   </head>
   <body>
 		<%include header.ejs%>
-		<% if(JSON.parse(JSON.stringify(data)).status == 'success') %>
-		<strong><%= JSON.parse(JSON.stringify(data)).msg %></strong>
-    <form  method="post">
+		<% if(JSON.parse(JSON.stringify(data)).status == 'success'){ %>
+		<div class="popup"><%= JSON.parse(JSON.stringify(data)).msg %><button id="OK">Ok</button></div>
+		<% }%>
+		<form  method="post">
 				<label for="tags[]">Tags: &nbsp;</label>Check the appropriate tags<br><br>
 				<% var tag_list=JSON.parse(JSON.stringify(data)).tags %>
 				<% for(var i=0;i<tag_list.length;i++) {%>
