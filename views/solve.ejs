@@ -24,7 +24,7 @@
                 editor = CodeMirror.fromTextArea(document.getElementById("code"), {
                 lineNumbers: true
                 });
-                
+                editor.setOption("theme",$("#theme").val());
                 if($("#language").val!= 'def'){
                     var l = $("#language").val();
                     var lang_mode='';
@@ -149,10 +149,10 @@
                     <option value="Python3" <% if( lang!= '' && lang == 'Python3'){%> selected<%}%>>Python3</option>
                 </select> Theme:
                 <select id="theme" name="theme">
-                    <option value="default">default</option>
-                    <option value="3024-night">3024-night</option>
-                    <option value="abcdef">abcdef</option>
-                    <option value="blackboard">blackboard</option>
+                    <option value="default" <% if( theme!= '' && theme == 'default'){%> selected<%}%>>default</option>
+                    <option value="3024-night" <% if( theme!= '' && theme == '3024-night'){%> selected<%}%>>3024-night</option>
+                    <option value="abcdef" <% if( theme!= '' && theme == 'abcdef'){%> selected<%}%>>abcdef</option>
+                    <option value="blackboard" <% if( theme!= '' && theme == 'blackboard'){%> selected<%}%>>blackboard</option>
                 </select> <br>
               <textarea id="code" name="code"  cols="80" rows="40" style="resize:none" value="<%if (code!=''){ %><%=code%><%}%>"><%=code%></textarea>
               <script> enableTab('code');</script>

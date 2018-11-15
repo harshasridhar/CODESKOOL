@@ -18,9 +18,7 @@ const {c, cpp, node, python, java} = require('compile-run');
 var Promise = require('bluebird');
 var cmd = require('node-cmd');
 var wait = require('wait-for-stuff');
-const getAsync = Promise.promisify(cmd.get, { multiArgs: true, context: cmd })
-// const cAsync = Promise.promisify(c.runFile);
-const pAsync = Promise.promisify(python.runFile);
+const getAsync = Promise.promisify(cmd.get, { multiArgs: true, context: cmd });
 module.exports=function(app){
   app.get('/',function(req,res){
     var query=problemCategory.find({});
@@ -151,7 +149,6 @@ module.exports=function(app){
         var prob =new problem(p).save(function(err,pr){
           if(err) throw err;
           res.render('addProblem',{"data":{"tags":tags,"status":'success',"msg" :'Problem added successfully',"username":req.session.username}});
-          // res.json(p);
         });
       }
     });
