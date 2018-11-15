@@ -146,9 +146,8 @@ input[type="email"]{
               0px 6px 6px rgb(0,0,0,0.49);
 }
 
-header{
-  box-shadow: 0px 3px 7px rgba(0, 0, 0,0.5),
-              0px 2px 2px rgb(0,0,0,0.49);
+button{
+  z-index: 200;
 }
 
 i{

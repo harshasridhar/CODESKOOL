@@ -1,6 +1,19 @@
+header{
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 10;
+    overflow: hidden;
+    background-color:#3d18b3;
+    height: 60px;
+    width: 100%;
+    box-shadow: 0px 3px 7px rgba(0, 0, 0,0.5),
+              0px 2px 2px rgb(0,0,0,0.49);
+}
+
 .username{
     font-size: 25px;
-    position: absolute;
+    position: fixed;
     right: 20px;
     top: 14px;
     z-index: 200;
@@ -30,12 +43,14 @@
 
 .username ul li{
     display: block;
-    padding: 5px 5px 10px 8px;
+    height: 30px;
     list-style: none;
 }
 
 .username ul li a{
-    top: 0px;
+    display: block;
+    position: relative;
+    top: 6px;
     color: #1e06a8;
     font-size: 15px;
     text-decoration: none;

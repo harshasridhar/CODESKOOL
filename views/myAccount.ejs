@@ -1,6 +1,7 @@
 <html>
     <head>
         <title>My Account Page</title>
+        <link rel="stylesheet" href="/assets/css/myAccount.css">
         <style>
             input[type="checkbox"][readonly] {
                 pointer-events: none;
@@ -9,10 +10,11 @@
     </head>
     <body>
         <% include header.ejs%> <br><br><br>
+        <div id="card">
         <table>
             <tr><th>UserName</th><td><%= username%></td></tr>
             <tr><th>Email Id</th><td><%= email%></td></tr>
-            <%var p = preferences %>
+            <!-- <%var p = preferences %>
             <tr><th>Preferences</th>
                 <td>
                     <input type="checkbox"  <% if (p.indexOf('Algorithms')!=-1){ %>checked <% } %> readonly>Algorithms <br>
@@ -21,7 +23,7 @@
                     <input type="checkbox" <% if (p.indexOf('Recursion')!=-1){ %>checked <% } %> readonly>Recursion <br>
                     &nbsp; <input type="submit" value="Update Preferences">
                 </td>
-            </tr>
+            </tr> -->
             <tr><th>Submissions</th><td>0</td></tr>
             <tr><th>Languages Used</th>
                 <td>
@@ -33,5 +35,6 @@
                 </td>
             </tr>
         </table>
+        </div>
     </body>
 </html>

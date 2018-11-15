@@ -26,6 +26,6 @@ $(document).ready(function(){
         $(".signup_card").css("top","-650px");
         $(".login_button").fadeIn(5);
         $(".signup_button").fadeIn(5);
-        $(".welcome").fadeOut(5)
+        $(".welcome").fadeIn(5)
     })
 })
