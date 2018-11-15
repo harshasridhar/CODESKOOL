@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/assets/css/dashboard.css">
     <link rel="stylesheet" href="/assets/material-design-icons/iconfont/material-icons.css">
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <meta http-equiv="cache-control" content="max-age=0" />
     <meta http-equiv="cache-control" content="no-cache" />
     <meta http-equiv="expires" content="0" />
@@ -16,5 +17,48 @@
     <%include header.ejs%>
     <div class="option practice"><i class="material-icons" style="font-size: 70px;">code</i><form action="practice" method="get"><input type="submit" value="Practice" name="practice"></form></div>
     <div class="option problem"><i class="material-icons" style="font-size: 50px;">border_color</i><form action="addProblem" method="get"><input type="submit" value="Submit questions" name="submit questions"></form></div>
+     
+    <% if(submissions!=[]){
+        var user_submissions = submissions;
+        var c=0,cpp=0,java=0,python=0;
+        for(var i=0;i<user_submissions.length;i++){
+            switch(user_submissions[i].language){
+                case 'C' : c++; break;
+                case 'C++' : cpp++; break;
+                case 'Java' : java++; break;
+                case 'Python3' : python++; break;
+            }           
+        }%>
+        <script>
+            google.charts.load('current', {packages: ['corechart']});
+            google.charts.setOnLoadCallback(drawChart);
+
+            function drawChart() {
+            var data = google.visualization.arrayToDataTable([
+                ['Element', 'Number of submissions', { role: 'style' }, { role: 'annotation' } ],
+                ['C', <%=c%>, '#3D18B3', <%=c%> ],
+                ['C++', <%=cpp%>, '#3D18B3', <%=cpp%> ],
+                ['Java', <%=java%>, '#3D18B3', <%=java%> ],
+                ['Python', <%=python%>, '#3D18B3', <%=python%> ]
+            ]);
+            var options = {
+                'legend':'left',
+                'title':'Submissions By Language',
+                'is3D':true,
+                'width':400,
+                'height':300
+            }
+            // Instantiate and draw the chart.
+            var langchart = new google.visualization.ColumnChart(document.getElementById('langChart'));
+            langchart.draw(data,options);
+            }
+            drawChart();
+        </script>
+        
+    <%}
+     %>
+     <br><br><br><br><br><br><br>
+     <div id="langChart"></div> <br>
+     
 </body>
 </html>

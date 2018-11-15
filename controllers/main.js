@@ -61,7 +61,18 @@ module.exports=function(app){
             res.redirect('/');
           }
           else{
-            res.render("dashboard",{"username" : user.userName});
+            submission.find({userId: req.session.userId},function(err,subm){
+              if(err) throw err;
+              if(subm.length == 0)
+                res.render("dashboard",{"username" : user.userName,"submissions":[],"categories":[]});
+              else{
+                problemCategory.find({},function(err,categories){
+                  if(err) throw err;
+                  res.render("dashboard",{"username" : user.userName,"submissions": subm,"categories":categories});
+                })
+                
+              }
+            });
           }
         }
     });
