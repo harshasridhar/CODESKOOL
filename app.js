@@ -19,6 +19,6 @@ app.use(session({secret: 'your secret'}));
 // app.use(cookieParser);
 mainController(app);
 
-app.listen(3000,'0.0.0.0',function(){
+app.listen(3000,function(){
   console.log('Listening to port: '+ 3000);
 });
