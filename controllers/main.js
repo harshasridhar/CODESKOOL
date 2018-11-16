@@ -21,22 +21,11 @@ var wait = require('wait-for-stuff');
 const getAsync = Promise.promisify(cmd.get, { multiArgs: true, context: cmd });
 module.exports=function(app){
   app.get('/',function(req,res){
-    var query=problemCategory.find({});
-    query.exec(function(err,tags){
-      if(err) throw err;
-      else{
-        res.render('login',{"data":{"tags":tags}});
-      }
-    });
+    res.render('login',{"data":{}});
   });
   app.get('/login',function(req,res){
-    var query=problemCategory.find({});
-    query.exec(function(err,tags){
-      if(err) throw err;
-      else{
-        res.render('login',{"data":{"tags":tags}});
-      }
-    });
+      res.render('login',{"data":{}});
+    
   });
   app.post('/check',urlencodedParser,function(req,res){
     tags=[];
@@ -124,23 +113,19 @@ module.exports=function(app){
         var userData={
           userName : req.body.userName,
           password : user.hash(req.body.password),
-          email : req.body.email_id,
-          preferences : req.body.preferences
+          email : req.body.email_id
         };
         var u=new user(userData).save(function(err,data){
           if(err) throw err;
-          console.log("here 3");
           res.render('login',{"data":{"status":'success',"msg":"User with username "+userData.userName+" added Successfully!"}});
         });
       }
       else {
-        console.log("here 4");
         res.render('login',{"data":{"status":'failed',"msg":"Username already exists!"}});
       }
     });
   }
   else if(req.body.userName && req.body.password && req.body.confPassword != req.body.password){
-    console.log("here 5");
     res.render('login',{"data":{"status":'failed',"msg":"Passwords do not match!"}});
   }
   });

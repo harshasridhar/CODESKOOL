@@ -1,5 +1,5 @@
 var mongoose = require('mongoose');
-var UserSchema = new mongoose.Schema({ userName: String, password : String,email : String, preferences : [String]});
+var UserSchema = new mongoose.Schema({ userName: String, password : String,email : String});
 UserSchema.statics.hash=function(password){
 }
 UserSchema.statics.hash = function(s) {

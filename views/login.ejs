@@ -38,14 +38,6 @@
         <i class="material-icons">vpn_key</i><input type="password" name="password" id="password" placeholder="Password" required>
         <i class="material-icons">vpn_key</i><input type="password" name="confPassword" id="password" placeholder="Retype Password" required>
         <i class="material-icons">mail</i><input type="email" name="email_id" placeholder="Email">
-        <div id="preferences">Choose your preferences</div>
-        <% var tag_list=JSON.parse(JSON.stringify(data)).tags %>
-				<% for(var i=0;i<tag_list.length;i++) {%>
-				<label class="container"><%= tag_list[i].category %>
-          <input type="checkbox" value="<%= tag_list[i].category %>" name="preferences[]">
-          <span class="checkmark"></span>
-				</label>
-				<% }%>
 				 <br>
         <input type="submit" name="submit" value="Sign Up" class="ripple">
       </form>
