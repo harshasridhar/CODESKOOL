@@ -175,7 +175,12 @@ module.exports=function(app){
           res.redirect('/');
         }
         else{
-          res.render("myAccount",{"username" : user.userName,"email":user.email,"preferences":user.preferences});
+          var query = submission.find();
+          query.where({userId : req.session.userId});
+          query.exec(function(err,submissions){
+            if(err) throw err;
+            res.render("myAccount",{"username" : user.userName,"email":user.email,"submissions":submissions});
+          });
         }
       }
   });

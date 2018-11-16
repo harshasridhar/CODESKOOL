@@ -2,35 +2,41 @@
     <head>
         <title>My Account Page</title>
         <link rel="stylesheet" href="/assets/css/myAccount.css">
-        <style>
-            input[type="checkbox"][readonly] {
-                pointer-events: none;
-            }
-        </style>
     </head>
     <body>
         <% include header.ejs%> <br><br><br>
+        <% 
+            var subms = submissions;
+            var c=0,cpp=0,java=0;python=0;
+            for(var i=0;i<subms.length;i++){
+                switch(subms[i].language){
+                    case 'C' : c++; break;
+                    case 'C++' : cpp++; break;
+                    case 'Java' : java++; break;
+                    case 'Python3' : python++; break;
+                }
+            }
+        %>
         <div id="card">
         <table>
             <tr><th>UserName</th><td><%= username%></td></tr>
             <tr><th>Email Id</th><td><%= email%></td></tr>
-            <!-- <%var p = preferences %>
-            <tr><th>Preferences</th>
-                <td>
-                    <input type="checkbox"  <% if (p.indexOf('Algorithms')!=-1){ %>checked <% } %> readonly>Algorithms <br>
-                    <input type="checkbox" <% if (p.indexOf('Data Structures')!=-1){ %>checked <% } %> readonly>Data Structures <br>
-                    <input type="checkbox" <% if (p.indexOf('Dynamic Programming')!=-1){ %>checked <% } %> readonly>Dynamic Programming <br>
-                    <input type="checkbox" <% if (p.indexOf('Recursion')!=-1){ %>checked <% } %> readonly>Recursion <br>
-                    &nbsp; <input type="submit" value="Update Preferences">
-                </td>
-            </tr> -->
-            <tr><th>Submissions</th><td>0</td></tr>
+            <tr><th>Submissions</th><td><%= subms.length%></td></tr>
             <tr><th>Languages Used</th>
                 <td>
                     <ul>
-                        <li>Python</li>
-                        <li>C</li>
-                        <li>Java</li>
+                        <% if(c!=0){%>
+                            <li>C - <%= c%> submissions</li>
+                        <% } %>
+                        <% if(cpp!=0){%>
+                            <li>C++ - <%= cpp%> submissions</li>
+                        <% } %>
+                        <% if(java!=0){%>
+                            <li>Java - <%= java%> submissions</li>
+                        <% } %>
+                        <% if(python!=0){%>
+                            <li>Python - <%= python%> submissions</li>
+                        <% } %>
                     </ul>
                 </td>
             </tr>
