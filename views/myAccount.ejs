@@ -7,8 +7,9 @@
         <% include header.ejs%> <br><br><br>
         <% 
             var subms = submissions;
-            var c=0,cpp=0,java=0;python=0;
+            var c=0,cpp=0,java=0,python=0,points=0;
             for(var i=0;i<subms.length;i++){
+                points += subms[i].points;
                 switch(subms[i].language){
                     case 'C' : c++; break;
                     case 'C++' : cpp++; break;
@@ -40,6 +41,7 @@
                     </ul>
                 </td>
             </tr>
+            <tr><th>Points Scored </th><td><%= points%></td></tr>
         </table>
         </div>
     </body>
