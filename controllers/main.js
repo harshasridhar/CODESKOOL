@@ -159,7 +159,9 @@ module.exports=function(app){
       else{
         var prob =new problem(p).save(function(err,pr){
           if(err) throw err;
-          res.render('addProblem',{"data":{"tags":tags,"status":'success',"msg" :'Problem added successfully',"username":req.session.username}});
+          var username = req.session.username;
+          console.log(username);
+          res.render('addProblem',{"data":{"tags":tags,"status":'success',"msg" :'Problem added successfully'},"username":username});
         });
       }
     });
