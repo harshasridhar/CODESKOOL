@@ -153,16 +153,32 @@ module.exports=function(app){
       inp : req.body.inp,
       out : req.body.out,
     }
-    var query=problemCategory.find({});
-    query.exec(function(err,tags){
+    var q = problem.find({});
+    q.where({tags : p.tags, pstatement : p.pstatement });
+    q.exec(function(err,problems){
       if(err) throw err;
       else{
-        var prob =new problem(p).save(function(err,pr){
-          if(err) throw err;
-          var username = req.session.username;
-          console.log(username);
-          res.render('addProblem',{"data":{"tags":tags,"status":'success',"msg" :'Problem added successfully'},"username":username});
-        });
+        if(problems.length!=0){
+          var query=problemCategory.find({});
+          query.exec(function(err,tags){
+            if(err) throw err;
+            res.render('addProblem',{"data":{"tags":tags,"status":'success',"msg" :'Problem already exists'},"username":req.session.username});
+          });
+        }
+        else{
+          var query=problemCategory.find({});
+          query.exec(function(err,tags){
+            if(err) throw err;
+            else{
+              var prob =new problem(p).save(function(err,pr){
+                if(err) throw err;
+                var username = req.session.username;
+                console.log(username);
+                res.render('addProblem',{"data":{"tags":tags,"status":'success',"msg" :'Problem added successfully'},"username":username});
+              });
+            }
+          });
+        }
       }
     });
   });
